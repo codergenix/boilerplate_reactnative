@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 
 export const Color = {
    primary: "#b59f6b",
-   primary_light: "#d5c192",
+   primary2: "#d5c192",
    secondary: "#201c19",
    secondary2: "#35302d",
    secondary3: "#423d38",

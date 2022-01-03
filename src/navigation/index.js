@@ -11,20 +11,20 @@ const Stack = createNativeStackNavigator();
 const Navigation = () => {
 
     return (
-            <NavigationContainer>
-                <Stack.Navigator initialRouteName="login">
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="login">
+                <Stack.Screen
+                    name="login"
+                    options={{ header:() => null, animationEnabled: false, }}
+                    component={Login} />
+                <Stack.Group>
                     <Stack.Screen
-                        name="login"
-                        options={{ title: 'login', animationEnabled: false, }}
-                        component={Login} />
-                    <Stack.Group>
-                        <Stack.Screen
-                            name="user"
-                            options={{ title: 'user', animationEnabled: false, }}
-                            component={Users} />
-                    </Stack.Group>
-                </Stack.Navigator>
-            </NavigationContainer>
+                        name="user"
+                        options={{ title: 'user', animationEnabled: false, }}
+                        component={Users} />
+                </Stack.Group>
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
 export default Navigation;
