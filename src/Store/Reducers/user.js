@@ -25,7 +25,7 @@ export const getAllUser = createAsyncThunk(
 export const addUser = createAsyncThunk(
     'user/add',
     async (postdata, thunkAPI) => {
-        postdata.CreatedBy = Service.getUserid();
+        postdata.CreatedBy = await Service.getUserid();
         try {
             let result = await axios({ method: 'POST', url: `${CONFIG.API_ENDPOINT}user/create`, data: postdata, headers: CONFIG.API_HEADER.headers });
             console.log('create result >>', result);
@@ -43,7 +43,7 @@ export const addUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
     'user/update',
     async (postdata, thunkAPI) => {
-        postdata.updateBy = Service.getUserid();
+        postdata.updateBy = 1;
         try {
             let result = await axios({ method: 'PUT', url: `${CONFIG.API_ENDPOINT}user/update`, data: postdata, headers: CONFIG.API_HEADER.headers });
             console.log('update result >>', result);
@@ -64,7 +64,7 @@ export const deleteUser = createAsyncThunk(
         try {
             let deleteData = {
                 "id": postdata.id,
-                "UpdatedBy": Service.getUserid()
+                "UpdatedBy": await Service.getUserid()
             }
             let result = await axios({ method: 'DELETE', url: `${CONFIG.API_ENDPOINT}user/delete`, data: postdata, headers: CONFIG.API_HEADER.headers });
             console.log('delete result >>', result);

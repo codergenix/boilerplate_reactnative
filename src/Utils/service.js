@@ -1,30 +1,33 @@
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const loginexpire = () => {
+//=======================
+const loginexpire = async () => {
+    const getitem = await AsyncStorage.getItem('ReactNativeloginTime');
+    let pasgetitem = getitem != null ? getitem : null;
     let currentday = moment().format('YYYY-MM-DD');
-    let logintime = AsyncStorage.getItem('ReactNativeloginTime');
-    if (moment(logintime).isBefore(currentday)) {
+    if (moment(pasgetitem).isBefore(currentday)) {
         logout();
     }
     return true;
 }
-const getlogin = () => {
-    if (AsyncStorage.ReactNativeisLogin) {
+const getlogin = async() => {
+    const getitem = await AsyncStorage.getItem('ReactNativeisLogin');
+    let pasgetitem = getitem != null ? getitem : null;
+    if (pasgetitem) {
         loginexpire();
     }
-    return AsyncStorage.getItem('ReactNativeisLogin');
+    return pasgetitem;
 }
-const getUserid = () => {
-    return AsyncStorage.getItem('ReactNativeuserId');
+const getUserid = async () => {
+    let getitem = await AsyncStorage.getItem('ReactNativeuserId');
+    let pasgetitem = getitem != null ? getitem : null;
+    return pasgetitem
 }
-const getUserData = () => {
-    let getdata = AsyncStorage.getItem('ReactNativeuserData');
-    if (getdata) {
-        return JSON.parse(getdata);
-    }
+const getUserData = async () => {
+    const getitem = await AsyncStorage.getItem('ReactNativeuserData');
+    let pasgetitem = getitem != null ? JSON.parse(getitem) : null;
+    return pasgetitem;
 }
-
 const logout = async () => {
     //await AsyncStorage.clear();
     await AsyncStorage.setItem('ReactNativeloginTime', '');
@@ -33,7 +36,6 @@ const logout = async () => {
     await AsyncStorage.setItem('ReactNativetoken', '');
     await AsyncStorage.setItem('ReactNativeuserData', '');
     await AsyncStorage.setItem('ReactNativeuserId', '');
-    await window.location.reload(false);
     return true;
 }
 

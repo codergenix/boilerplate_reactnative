@@ -12,12 +12,12 @@ export const loginUser = createAsyncThunk(
             let result = await axios({ method: 'POST', url: `${CONFIG.API_ENDPOINT}login`, data: userdata, headers: CONFIG.API_HEADER.headers });
             console.log('login result >>', result);
             if (result.data.success) {
-                AsyncStorage.setItem('ReactNativeloginTime', moment().format('YYYY-MM-DD'));
-                AsyncStorage.setItem('ReactNativetoken', result.data.result.token);
-                AsyncStorage.setItem('ReactNativeisLogin', true);
-                AsyncStorage.setItem('ReactNativestatus', 'login');
-                AsyncStorage.setItem('ReactNativeuserId', result.data.result.id);
-                AsyncStorage.setItem('ReactNativeuserData', JSON.stringify(result.data.result));
+                await AsyncStorage.setItem('ReactNativeloginTime', moment().format('YYYY-MM-DD'));
+                await AsyncStorage.setItem('ReactNativetoken', result.data.result.token);
+                await AsyncStorage.setItem('ReactNativeisLogin', 'true');
+                await AsyncStorage.setItem('ReactNativestatus', 'login');
+                await AsyncStorage.setItem('ReactNativeuserId', `${result.data.result.id}`);
+                await AsyncStorage.setItem('ReactNativeuserData', JSON.stringify(result.data.result));
                 return result.data.result;
             }
             else {
